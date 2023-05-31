@@ -1,12 +1,33 @@
 "use client";
 import './page.css'
-import React, { useState } from 'react';
-import Tabs from '../components/tabs/tabs';
+import React, { useEffect, useState } from 'react';
 import {useParams} from 'next/navigation';
+import axios from 'axios';
+import ActorGrid from '../components/actorGrid/actorGrid.component';
 
 export default function() {
-  const movie = {title: 'John Wick',}
+  const params = useParams();
+  const [movie, setMovie] = useState({
+    title: "",
+    backdrop_path: "",
+    poster_path: "",
+    release_date: "",
+    directors: [],
+    cast: [],
+    overview: "",
+  });
+  console.log(params.id)
+  const useFetchMovie = () => {
+    axios
+    .get(`http://localhost:8080/movie/find?id=${params.id}`)
+    .then((response) => {setMovie(response.data)})
+    .catch((err) => {console.log(err)});
+  };
+
+  useEffect(useFetchMovie,[])
+
   const [activeTab, setActiveTab] = useState(1);
+
   return (
     <div className="page-container">
       <div className="menu-bar">
@@ -14,22 +35,22 @@ export default function() {
           <img style={{height: '40px', width: 'auto', display: 'block', margin: '5px', marginLeft:'15px'}} src='https://cdn-pop.viarezo.fr/static/wassimovie/logos/logo-pride.png'/>
         </a>
       </div>
-      <div className="main-body" style={{backgroundImage: `url("${process.env.imdbPhotoURL}/h8gHn0OzBoaefsYseUByqsmEDMY.jpg")`}}>
+      <div className="main-body" style={{backgroundImage: `url("${process.env.imdbPhotoURL}${movie.backdrop_path}")`}}>
         <div className='dark-body'>
           <div className='header-card'>
-          <img className='poster-image' src={`${process.env.imdbPhotoURL}/vLuWnBnCRTU8WxihMGkebcbu5f.jpg`}/>
+          <img className='poster-image' src={`${process.env.imdbPhotoURL}${movie.poster_path}`}/>
           <div className='info-card'>
             <p className='text-header'>{movie.title}</p>
-            <p><b>Released:</b> 06/03/2023</p>
-            <p><b>Director:</b> Chad Stahelski</p>
-            <button className='trailer-button'>
+            <p><b>Released:</b> {movie.release_date}</p>
+            <p style={{display: 'flex', flexDirection:'row'}}><b>Director(s):</b>{movie.directors.map(director => <p style={{marginLeft: '15px'}}>{director['name']}</p>)}</p>
+            <a className='trailer-button'>
               <div style={{width: "30px", height:"2em"}}>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill='white'>
                   <path d="M8 5v14l11-7z"/>
                 </svg>
               </div>
                 <span style={{height:'100%', verticalAlign:'center'}}>Trailer</span>
-            </button>
+            </a>
           </div>
           </div>
           <div className='info-section'>
@@ -55,8 +76,8 @@ export default function() {
             </div>
             <hr style={{position:'relative',width:'90%', left:'5%',border:'none',padding:'2px',background:'linear-gradient(to right, #2b5876, #4e4376)'}}></hr>
             <div className='info-box'>
-              {activeTab === 1 && <div>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</div>}
-              {activeTab === 2 && <div>Content for Tab 2</div>}
+              {activeTab === 1 && <div>{movie.overview}</div>}
+              {activeTab === 2 && <div><ActorGrid items={movie.cast}/></div>}
               {activeTab === 3 && <div>Content for Tab 3</div>}
             </div>
           </div>
