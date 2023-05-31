@@ -1,0 +1,33 @@
+.tab-header {
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+  width: 90%;
+}
+
+.tab-header button {
+  flex: 1;
+  padding: 10px;
+  font-weight: bold;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+
+.tab-header button.active {
+  color: blue;
+}
+
+.tab-content {
+  padding: 10px;
+}
+
+.tab-body {
+  position: absolute;
+  bottom:0;
+  margin: 20px;
+  width: 90%;
+  height: 50%;
+  overflow-y: scroll;
+}
