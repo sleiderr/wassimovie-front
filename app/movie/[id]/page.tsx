@@ -16,10 +16,10 @@ export default function() {
     cast: [],
     overview: "",
   });
-  console.log(params.id)
+
   const useFetchMovie = () => {
     axios
-    .get(`http://localhost:8080/movie/find?id=${params.id}`)
+    .get(`${process.env.backURL}/movie/find`,{params: params})
     .then((response) => {setMovie(response.data)})
     .catch((err) => {console.log(err)});
   };
@@ -32,7 +32,7 @@ export default function() {
     <div className="page-container">
       <div className="menu-bar">
         <a href='/'>
-          <img style={{height: '40px', width: 'auto', display: 'block', margin: '5px', marginLeft:'15px'}} src='https://cdn-pop.viarezo.fr/static/wassimovie/logos/logo-pride.png'/>
+          <img style={{height: '30px', width: 'auto', display: 'block', margin: '10px', marginLeft:'15px'}} src={process.env.logoURL}/>
         </a>
       </div>
       <div className="main-body" style={{backgroundImage: `url("${process.env.imdbPhotoURL}${movie.backdrop_path}")`}}>
