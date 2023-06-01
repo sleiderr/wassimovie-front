@@ -20,11 +20,11 @@ export default function RootLayout({
           <a href='/'>
             <img style={{height: '30px', width: 'auto'}} src={process.env.logoURL}/>
           </a>
-          <a href='/trending'>
-            Trending
+          <a href='/explore'>
+            Explore
           </a>
-          <a href='/recommended'>
-            Recommended
+          <a href='/user'>
+            Account
           </a>
         </div>
         {children}

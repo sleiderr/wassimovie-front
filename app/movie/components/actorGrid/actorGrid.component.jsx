@@ -5,7 +5,7 @@ const ActorGrid = ({ items }) => {
   return (
     <div className="item-grid">
       {items.map((item, index) => (
-        <ActorCard key={index} item={item} />
+        <ActorCard item={item} key={index}/>
       ))}
     </div>
   );
