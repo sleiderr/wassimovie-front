@@ -1,0 +1,56 @@
+body {
+    padding: 0px;
+    margin: 0px;
+    display: block;
+    background: #2b5876;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #2b5876, #4e4376);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #2b5876, #4e4376);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    animation: gradient 25s ease infinite;
+    min-height: 100vh;
+
+}
+
+
+.search-div {
+    display: block;
+    margin-left: 30%;
+    margin-right: 30%;
+    height: 15%;
+    padding-bottom: 5%;
+    
+}
+
+.wassi{
+    height: 15%;
+    width: 20%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 5%;
+    padding-top:2%;
+}
+
+
+.wassi-trend {
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.MuiInputBase-input  {
+    background: #2b5876;
+  }
+
+.MuiInputAdornment-root {
+    background: rgb(81, 50, 165);
+}
+
+.wassi-separator {
+    width:50%;
+    margin-left: auto;
+    margin-right: auto;
+}
