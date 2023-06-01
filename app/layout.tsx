@@ -15,7 +15,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="m-0 p-0">
-      <body className={`m-0 p-0 ${inter.className}`}>{children}</body>
+      <body className={`m-0 p-0 ${inter.className}`}>
+        <div className="menu-bar">
+          <a href='/'>
+            <img style={{height: '30px', width: 'auto'}} src={process.env.logoURL}/>
+          </a>
+        </div>
+        {children}
+      </body>
     </html>
   )
 }

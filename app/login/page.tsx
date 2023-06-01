@@ -45,7 +45,7 @@ const loginPage: FC = function() {
             type="password"
             autoComplete="current-password"
           />
-          <Button color="secondary" sx={{ '&:active': {bgcolor: '#a11111'}, backgroundColor: '#ab47bc', mb: 7 }} variant="contained" endIcon={<SendIcon />}>
+          <Button style={{backgroundColor: '#ab47bc'}} sx={{ '&:active': {bgcolor: '#a11111'}, backgroundColor: '#ab47bc', mb: 7 }} variant="contained" endIcon={<SendIcon />}>
             Se connecter
           </Button>
           </FormControl>
