@@ -1,0 +1,16 @@
+.main-body {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 20px;
+  width:calc(100% - 40px);
+  height: calc(100% - 90px);
+  margin: 20px;
+  margin-top: 70px;
+  /* Add additional styles for the main body */
+  overflow: hidden;
+  box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.4);
+}

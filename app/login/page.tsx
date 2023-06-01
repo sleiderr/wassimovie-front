@@ -1,17 +1,62 @@
 'use client'
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
+import { useRouter } from 'next/navigation';
 import styles from './styles.module.css'
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import SendIcon from '@mui/icons-material/Send'
 import FormControl from "@mui/material/FormControl";
-import { Avatar, Divider, IconButton } from "@mui/material";
+import { Alert, Avatar, Divider, IconButton } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
 import FacebookIcon from "@mui/icons-material/Facebook";
+import axios from "axios";
+import { redirect } from "next/dist/server/api-utils";
 
 
 const loginPage: FC = function() {
+  const [loginDetail, setLoginDetail] = useState({
+    username: null,
+    email: null,
+    password: null,
+  })
+
+  const [errorMessage, setErrorMessage] = useState("")
+
+  const router = useRouter();
+
+  const onSubmit = async () => {
+    axios
+      .post(`${process.env.backURL}/user/login`, loginDetail,
+        {headers: {'content-type': 'application/x-www-form-urlencoded'}}
+      )
+      .then((response) => {
+        localStorage.setItem('jwtToken',response.data.code);
+        router.push('/user');
+      })
+      .catch((err) => {
+        setErrorMessage("Invalid user credentials")
+      })
+  }
+
+  const handleChange = function (evt) {
+    const value = evt.target.value;
+    setLoginDetail({
+      ...loginDetail,
+      [evt.target.name]: value
+    })
+  };
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.backURL}/user/me`,{ headers: {Authorization: `Bearer ${localStorage.getItem("jwtToken")}`}})
+      .then(() => {
+        console.log("yes")
+        router.push('/user')
+      })
+      .catch(() => {
+        })
+  },[])
 
   return (
     <>
@@ -23,6 +68,7 @@ const loginPage: FC = function() {
           <img className="place-self-center" width="50%" src="https://cdn-pop.viarezo.fr/static/wassimovie/logos/logo-small.png" />
           <div className="row-start-2 block">
           <FormControl fullWidth={true}>
+          {errorMessage && <Alert severity="error" style={{marginBottom: '20px'}}>{errorMessage}</Alert>}
           <TextField 
             sx={{ pb: 3, input: { color: '#faedcd' } }}
             InputLabelProps={{
@@ -30,8 +76,11 @@ const loginPage: FC = function() {
                 color: '#495057'          
               }          
             }}
+            value={loginDetail.username}
+            name="username"
+            onChange={handleChange}
             id="standard-basic" 
-            label="Mail" 
+            label="Username" 
           />
           <TextField
             sx={{ pb: 5, input: { color: '#faedcd'} }}
@@ -44,8 +93,11 @@ const loginPage: FC = function() {
             label="Mot de passe"
             type="password"
             autoComplete="current-password"
+            value={loginDetail.password}
+            name="password"
+            onChange={handleChange}
           />
-          <Button style={{backgroundColor: '#ab47bc'}} sx={{ '&:active': {bgcolor: '#a11111'}, backgroundColor: '#ab47bc', mb: 7 }} variant="contained" endIcon={<SendIcon />}>
+          <Button onClick={onSubmit} style={{backgroundColor: '#ab47bc'}} sx={{ '&:active': {bgcolor: '#a11111'}, backgroundColor: '#ab47bc', mb: 7 }} variant="contained" endIcon={<SendIcon />}>
             Se connecter
           </Button>
           </FormControl>
