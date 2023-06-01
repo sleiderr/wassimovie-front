@@ -1,17 +1,13 @@
 .page-container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
   overflow: hidden;
-  color: white;
-  background: linear-gradient(to right, #2b5876, #4e4376);;
 }
 
 .main-body {
   position: fixed;
   top: 0;
   left: 0;
-  background-image: url('https://image.tmdb.org/t/p/original/h8gHn0OzBoaefsYseUByqsmEDMY.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

@@ -20,6 +20,12 @@ export default function RootLayout({
           <a href='/'>
             <img style={{height: '30px', width: 'auto'}} src={process.env.logoURL}/>
           </a>
+          <a href='/trending'>
+            Trending
+          </a>
+          <a href='/recommended'>
+            Recommended
+          </a>
         </div>
         {children}
       </body>
