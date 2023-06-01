@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import {useParams} from 'next/navigation';
 import axios from 'axios';
 import ActorGrid from '../components/actorGrid/actorGrid.component';
+import { Rating } from '@mui/material';
 
 export default function() {
   const params = useParams();
@@ -15,6 +16,8 @@ export default function() {
     directors: [],
     cast: [],
     overview: "",
+    vote_average: 0,
+    vote_count: 0,
   });
 
   const useFetchMovie = () => {
@@ -30,11 +33,6 @@ export default function() {
 
   return (
     <div className="page-container">
-      <div className="menu-bar">
-        <a href='/'>
-          <img style={{height: '30px', width: 'auto', display: 'block', margin: '10px', marginLeft:'15px'}} src={process.env.logoURL}/>
-        </a>
-      </div>
       <div className="main-body" style={{backgroundImage: `url("${process.env.imdbPhotoURL}${movie.backdrop_path}")`}}>
         <div className='dark-body'>
           <div className='header-card'>
@@ -43,14 +41,16 @@ export default function() {
             <p className='text-header'>{movie.title}</p>
             <p><b>Released:</b> {movie.release_date}</p>
             <p style={{display: 'flex', flexDirection:'row'}}><b>Director(s):</b>{movie.directors.map(director => <p style={{marginLeft: '15px'}}>{director['name']}</p>)}</p>
-            <a className='trailer-button'>
+            {/* <a className='trailer-button'>
               <div style={{width: "30px", height:"2em"}}>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill='white'>
                   <path d="M8 5v14l11-7z"/>
                 </svg>
               </div>
                 <span style={{height:'100%', verticalAlign:'center'}}>Trailer</span>
-            </a>
+            </a> */}
+            <Rating name="rating_others" value={movie.vote_average/2} precision={0.1} readOnly />
+            <p>({movie.vote_count} Ratings)</p>
           </div>
           </div>
           <div className='info-section'>

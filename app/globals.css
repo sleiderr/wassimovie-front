@@ -25,3 +25,23 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.menu-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #1b263b;
+  height: 50px;
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: row;
+}
+
+.menu-bar a {
+  position: relative;
+  margin: 10px;
+  margin-left: 20px;
+  width: auto;
+  color: white;
+}
