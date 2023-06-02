@@ -19,11 +19,11 @@ const Movie = ({ movie }) => {
   }
 
   return (
+    <a href={`/movie/${movie.imdb_id}`}>
     <div
       className="movie-container"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      onClick={onClick}
     >
       {movie.poster_path && <img
         src={process.env.imdbPhotoURL + movie.poster_path}
@@ -35,6 +35,7 @@ const Movie = ({ movie }) => {
         <p className="movie-release-date">{movie.release_date}</p>
       </div>
     </div>
+    </a>
   );
 };
 

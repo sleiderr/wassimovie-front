@@ -4,11 +4,12 @@ import SendIcon from '@mui/icons-material/Send'
 
 interface LoginProps {
   children?: React.ReactNode,
-  login: boolean,
-  setLogin: Dispatch<SetStateAction<boolean>>
+  loginDetail: any,
+  handleChange: any,
+  submit: any,
 }
 
-const RegisterForm: FC<LoginProps> = function({children, login, setLogin}) {
+const RegisterForm: FC<LoginProps> = function({children, loginDetail, handleChange, submit}) {
   return(
         <>
         <FormControl fullWidth={true}>
@@ -21,7 +22,26 @@ const RegisterForm: FC<LoginProps> = function({children, login, setLogin}) {
               }          
             }}
             id="standard-basic" 
-            label="Mail" 
+            label="Username" 
+            name="username"
+            required={true}
+            value={loginDetail.username}
+            onChange={handleChange}
+          />
+          <TextField 
+            sx={{ p:2, pb: 3, input: { color: '#faedcd' } }}
+            InputLabelProps={{
+              sx: {
+                m: 2,
+                color: '#495057'          
+              }          
+            }}
+            id="standard-basic" 
+            label="Email" 
+            name="email"
+            required={true}
+            value={loginDetail.email}
+            onChange={handleChange}
           />
           <TextField 
             sx={{ p: 2, pb: 3, input: { color: '#faedcd' } }}
@@ -33,9 +53,41 @@ const RegisterForm: FC<LoginProps> = function({children, login, setLogin}) {
             }}
             id="standard-basic" 
             type="password"
-            label="Mot de passe" 
+            label="Password"
+            name="password"
+            required={true}
+            value={loginDetail.password}
+            onChange={handleChange}
           />
-          <TextField
+          <TextField 
+            sx={{ p:2, pb: 3, input: { color: '#faedcd' } }}
+            InputLabelProps={{
+              sx: {
+                m: 2,
+                color: '#495057'          
+              }          
+            }}
+            id="standard-basic" 
+            label="First Name" 
+            name="firstname"
+            value={loginDetail.firstname}
+            onChange={handleChange}
+          />
+          <TextField 
+            sx={{ p:2, pb: 3, input: { color: '#faedcd' } }}
+            InputLabelProps={{
+              sx: {
+                m: 2,
+                color: '#495057'          
+              }          
+            }}
+            id="standard-basic" 
+            label="Last Name" 
+            name="lastname"
+            value={loginDetail.lastname}
+            onChange={handleChange}
+          />
+          {/* <TextField
             sx={{ p:2, pb: 3, input: { color: '#faedcd'} }}
             InputLabelProps={{
               sx: {
@@ -47,11 +99,11 @@ const RegisterForm: FC<LoginProps> = function({children, login, setLogin}) {
             label="Confirmez votre mot de passe"
             type="password"
             autoComplete="current-password"
-          />
+          /> */}
         </FormControl>
           <div className="flex flex-row inline-block">
-          <Button onClick={() => setLogin(!login) } color="primary" sx={{ml: "75%", mr: 2, mt: 1, mb: 3 }} variant="contained" endIcon={<SendIcon />}>
-            Suivant
+          <Button onClick={submit} color="primary" sx={{left: "60%", padding: '10px' }} variant="contained" endIcon={<SendIcon />}>
+            Register
           </Button>
           </div>
         </>

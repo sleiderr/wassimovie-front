@@ -6,7 +6,7 @@ import axios from 'axios';
 import MovieGrid from './components/MovieGrid/movieGrid'
 
 function Home() {
-  const [movieName, setMovieName] = useState('');
+  
   const [recommendedMovies, setRecommendedMovies] = useState([]);
   const [trendingMovies, setTrendingMovies] = useState([]);
 
@@ -21,11 +21,8 @@ function Home() {
         .then((response) => {
           setRecommendedMovies(response.data);
         })
-        .catch((error) => {
-          console.log(error)
-        })
       )
-      .catch(() =>
+      .catch((err) =>
         axios
         .get(`${process.env.backURL}/movie/popular`, {
           params: {number: 100},

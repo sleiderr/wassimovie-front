@@ -23,13 +23,14 @@ const RatingCard = ({ item }) => {
   useEffect(useFetchMovie,[])
   const router = useRouter()
   return (
-    <div className="rating-container" onClick={onClick}>
+    <a href={`/movie/${movie.imdb_id}`} className='rating-container'>
       <img className='rating-poster' src={process.env.imdbPhotoURL + movie.poster_path} alt={movie.title}/>
       <div className='rating-detail'>
         <p>{movie.title}</p>
         <Rating value={item.rating} readOnly></Rating>
-      </div>
-    </div>
+        </div>
+    </a>
+    
   );
 };
 

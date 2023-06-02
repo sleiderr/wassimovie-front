@@ -53,7 +53,7 @@ const MoviePage = () => {
   }
 
   const onSetRating = (event) => {
-    setRating(event.target.value)
+    setRating(event.target.value);
     axios
       .post(`${process.env.backURL}/rating/add`,{
         id: params.id,

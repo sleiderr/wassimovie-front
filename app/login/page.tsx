@@ -20,15 +20,31 @@ const LoginPage: FC = function() {
     username: null,
     email: null,
     password: null,
+    firstname: null,
+    lastname: null,
   })
 
   const [errorMessage, setErrorMessage] = useState("")
 
   const router = useRouter();
 
-  const onSubmit = async () => {
+  const onSubmitLogin = async () => {
     axios
       .post(`${process.env.backURL}/user/login`, loginDetail,
+        {headers: {'content-type': 'application/x-www-form-urlencoded'}}
+      )
+      .then((response) => {
+        localStorage.setItem('jwtToken',response.data.code);
+        router.push('/user');
+      })
+      .catch((err) => {
+        setErrorMessage("Invalid user credentials")
+      })
+  }
+
+  const onSubmitRegister = async () => {
+    axios
+      .post(`${process.env.backURL}/user/new`, loginDetail,
         {headers: {'content-type': 'application/x-www-form-urlencoded'}}
       )
       .then((response) => {
@@ -62,17 +78,18 @@ const LoginPage: FC = function() {
   
   return (
     <>
-      <div className={`${styles.anim_gradient} h-screen overflow-hidden`}>
+      <div className={`${styles.anim_gradient} h-screen`} style={{minWidth: "1200px", position:"absolute", top: "70px", left: "50%", transform:'translateX(-50%)'}}>
         <div className="grid grid-cols-10">
         <div className="min-w-1000 rounded-lg col-start-4 col-end-8 mt-14 content-center">
-        <Paper elevation={12} className="rounded-lg bg-[#1b263b]">
+        <Paper elevation={12} style={{borderRadius:'10px', backgroundColor: "#1b263b"}}>
           <div className="flex flex-col">
           <img className="place-self-center mt-10" width="50%" src="https://cdn-pop.viarezo.fr/static/wassimovie/logos/logo-small.png" />
           <div>
+          {errorMessage && <Alert severity="error" style={{marginBottom: '20px'}}>{errorMessage}</Alert>}
           {login ?
-          <LoginForm login={login} setLogin={setLogin}/>
+          <LoginForm login={login} setLogin={setLogin} loginDetail={loginDetail} handleChange={handleChange} submit={onSubmitLogin}/>
           :
-          <RegisterForm login={login} setLogin={setLogin} />
+          <RegisterForm loginDetail={loginDetail} handleChange={handleChange} submit={onSubmitRegister}/>
           }
           <Divider />
           <div className="grid grid-cols-5">
