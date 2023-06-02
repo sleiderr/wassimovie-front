@@ -17,7 +17,6 @@ function Home() {
         axios
         .get(`${process.env.backURL}/movie/recommended`, {
           headers: {Authorization: localStorage.getItem("jwtToken")},
-          params: {number: 100},
         })
         .then((response) => {
           setRecommendedMovies(response.data);
