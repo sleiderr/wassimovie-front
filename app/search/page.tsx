@@ -9,14 +9,12 @@ function Home() {
   const [movieName, setMovieName] = useState('');
   const [movies, setMovies] = useState([]);
 
-
-  let movieList = movies.filter(movie => movie.title.includes(movieName))
-
   function onSearchClick() {
     axios
       .get(`${process.env.backURL}/movie/search`,{params: {title: movieName}})
       .then((result) => {
         setMovies(result.data)
+        setMovieName('');
       })
   }
 
@@ -27,8 +25,7 @@ function Home() {
       </header>
       <input value={movieName} onChange={event => setMovieName(event.target.value)} placeholder='Search a movie'/>
       <Button style={{marginLeft:"30px", backgroundColor:"#1b263b", color:"white", borderRadius:"30px", padding: "10px"}} onClick={onSearchClick}>Search</Button>
-      <MovieGrid movies={movieList} />
-      {movieList.length == 0 && <p>We're sorry. No movies matched your search</p>}
+      <MovieGrid movies={movies} />
     </div>
   );
 }
