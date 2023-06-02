@@ -23,7 +23,7 @@ const MoviePage = () => {
     vote_count: 0,
   });
   const [user, setUser] = useState(null)
-  const [rating, setRating] = useState(-1)
+  const [rating, setRating] = useState(null)
 
   const router = useRouter();
 

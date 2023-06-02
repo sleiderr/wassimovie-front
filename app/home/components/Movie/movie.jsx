@@ -25,11 +25,11 @@ const Movie = ({ movie }) => {
       onMouseLeave={handleMouseLeave}
       onClick={onClick}
     >
-      <img
+      {movie.poster_path && <img
         src={process.env.imdbPhotoURL + movie.poster_path}
         alt={movie.title}
         className="movie-poster"
-      />
+      />}
       <div className={`movie-overlay ${isHovered ? 'visible' : ''}`}>
         <h3 className="movie-title">{movie.title}</h3>
         <p className="movie-release-date">{movie.release_date}</p>

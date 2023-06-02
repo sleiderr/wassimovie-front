@@ -20,8 +20,8 @@ export default function RootLayout({
           <a href='/'>
             <img style={{height: '30px', width: 'auto'}} src={process.env.logoURL}/>
           </a>
-          <a href='/explore'>
-            Explore
+          <a href='/search'>
+            Search
           </a>
           <a href='/user'>
             Account
