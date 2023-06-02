@@ -14,7 +14,7 @@ import axios from "axios";
 import { redirect } from "next/dist/server/api-utils";
 
 
-const loginPage: FC = function() {
+const LoginPage: FC = function() {
   const [loginDetail, setLoginDetail] = useState({
     username: null,
     email: null,
@@ -49,9 +49,8 @@ const loginPage: FC = function() {
 
   useEffect(() => {
     axios
-      .get(`${process.env.backURL}/user/me`,{ headers: {Authorization: `Bearer ${localStorage.getItem("jwtToken")}`}})
+      .get(`${process.env.backURL}/user/me`,{ headers: {Authorization: localStorage.getItem("jwtToken")}})
       .then(() => {
-        console.log("yes")
         router.push('/user')
       })
       .catch(() => {
@@ -121,4 +120,4 @@ const loginPage: FC = function() {
   
 }
 
-export default loginPage;
+export default LoginPage;
