@@ -7,12 +7,13 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import SendIcon from '@mui/icons-material/Send'
 import FormControl from "@mui/material/FormControl";
-import { Alert, Avatar, Divider, IconButton } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
 import FacebookIcon from "@mui/icons-material/Facebook";
+import LoginForm from "./login_form";
+import RegisterForm from "./register_form";
 import axios from "axios";
 import { redirect } from "next/dist/server/api-utils";
-
+import { Alert, Avatar, Divider, IconButton } from "@mui/material";
 
 const LoginPage: FC = function() {
   const [loginDetail, setLoginDetail] = useState({
@@ -57,49 +58,22 @@ const LoginPage: FC = function() {
         })
   },[])
 
+  const [login, setLogin] = useState(true);
+  
   return (
     <>
       <div className={`${styles.anim_gradient} h-screen overflow-hidden`}>
-        <div className="grid grid-cols-10 grid-rows-5">
-        <div className="rounded-lg col-start-4 col-end-8 row-start-1 row-end-3 content-center">
+        <div className="grid grid-cols-10">
+        <div className="min-w-1000 rounded-lg col-start-4 col-end-8 mt-14 content-center">
         <Paper elevation={12} className="rounded-lg bg-[#1b263b]">
-          <div className="grid grid-rows-2 m-20 ">
-          <img className="place-self-center" width="50%" src="https://cdn-pop.viarezo.fr/static/wassimovie/logos/logo-small.png" />
-          <div className="row-start-2 block">
-          <FormControl fullWidth={true}>
-          {errorMessage && <Alert severity="error" style={{marginBottom: '20px'}}>{errorMessage}</Alert>}
-          <TextField 
-            sx={{ pb: 3, input: { color: '#faedcd' } }}
-            InputLabelProps={{
-              sx: {
-                color: '#495057'          
-              }          
-            }}
-            value={loginDetail.username}
-            name="username"
-            onChange={handleChange}
-            id="standard-basic" 
-            label="Username" 
-          />
-          <TextField
-            sx={{ pb: 5, input: { color: '#faedcd'} }}
-            InputLabelProps={{
-              sx: {
-                color: '#495057'            
-              }            
-            }}
-            id="outlined-password-input"
-            label="Mot de passe"
-            type="password"
-            autoComplete="current-password"
-            value={loginDetail.password}
-            name="password"
-            onChange={handleChange}
-          />
-          <Button onClick={onSubmit} style={{backgroundColor: '#ab47bc'}} sx={{ '&:active': {bgcolor: '#a11111'}, backgroundColor: '#ab47bc', mb: 7 }} variant="contained" endIcon={<SendIcon />}>
-            Se connecter
-          </Button>
-          </FormControl>
+          <div className="flex flex-col">
+          <img className="place-self-center mt-10" width="50%" src="https://cdn-pop.viarezo.fr/static/wassimovie/logos/logo-small.png" />
+          <div>
+          {login ?
+          <LoginForm login={login} setLogin={setLogin}/>
+          :
+          <RegisterForm login={login} setLogin={setLogin} />
+          }
           <Divider />
           <div className="grid grid-cols-5">
           <IconButton className="col-start-2 col-end-3" size='large' sx={{ mb: 2 }}>
