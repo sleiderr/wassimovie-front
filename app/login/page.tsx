@@ -1,15 +1,62 @@
 'use client'
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
+import { useRouter } from 'next/navigation';
 import styles from './styles.module.css'
 import Paper from "@mui/material/Paper";
-import { Divider, IconButton } from "@mui/material";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import SendIcon from '@mui/icons-material/Send'
+import FormControl from "@mui/material/FormControl";
 import GoogleIcon from "@mui/icons-material/Google";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import LoginForm from "./login_form";
 import RegisterForm from "./register_form";
+import axios from "axios";
+import { redirect } from "next/dist/server/api-utils";
+import { Alert, Avatar, Divider, IconButton } from "@mui/material";
 
+const LoginPage: FC = function() {
+  const [loginDetail, setLoginDetail] = useState({
+    username: null,
+    email: null,
+    password: null,
+  })
 
-const loginPage: FC = function() {
+  const [errorMessage, setErrorMessage] = useState("")
+
+  const router = useRouter();
+
+  const onSubmit = async () => {
+    axios
+      .post(`${process.env.backURL}/user/login`, loginDetail,
+        {headers: {'content-type': 'application/x-www-form-urlencoded'}}
+      )
+      .then((response) => {
+        localStorage.setItem('jwtToken',response.data.code);
+        router.push('/user');
+      })
+      .catch((err) => {
+        setErrorMessage("Invalid user credentials")
+      })
+  }
+
+  const handleChange = function (evt) {
+    const value = evt.target.value;
+    setLoginDetail({
+      ...loginDetail,
+      [evt.target.name]: value
+    })
+  };
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.backURL}/user/me`,{ headers: {Authorization: localStorage.getItem("jwtToken")}})
+      .then(() => {
+        router.push('/user')
+      })
+      .catch(() => {
+        })
+  },[])
 
   const [login, setLogin] = useState(true);
   
@@ -47,4 +94,4 @@ const loginPage: FC = function() {
   
 }
 
-export default loginPage;
+export default LoginPage;
