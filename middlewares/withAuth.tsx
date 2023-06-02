@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { JSX, useEffect, useState } from 'react';
 
-const withAuth = (WrappedComponent) => {
+const withAuth = (WrappedComponent: any) => {
   return () => {
     const router = useRouter();
     const [user, setUser] = useState({})
@@ -11,7 +11,7 @@ const withAuth = (WrappedComponent) => {
     useEffect(() => {
       // Check if the user is authenticated
       axios
-        .get(`${process.env.backURL}/user/me`,{ headers: {Authorization: `Bearer ${localStorage.getItem("jwtToken")}`}})
+        .get(`${process.env.backURL}/user/me`,{ headers: {Authorization: `${localStorage.getItem("jwtToken")}`}})
         .then(setUser)
         .catch(() => {
           router.replace('/login')
