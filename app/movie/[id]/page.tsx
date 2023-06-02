@@ -70,7 +70,7 @@ const MoviePage = () => {
 
   return (
     <div className="page-container">
-      <div className="main-body" style={{backgroundImage: `url("${process.env.imdbPhotoURL}${movie.backdrop_path}")`}}>
+      <div className="main-body" style={{backgroundImage: `url("${process.env.imdbPhotoHRURL}${movie.backdrop_path}")`}}>
         <Button sx={{color: 'white'}} startIcon={<ArrowBackIosIcon />} onClick={handleGoBack}>Back</Button>
         <div className='dark-body'>
           <div className='header-card'>
